@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-# Name: Rob Lodes (rlodes), Michael S... (ms...)
+# Name: Rob Lodes (rlodes), Michael Farley (mf...)
 # bme160 final project
 
 
 import sys
+import csv
 
 class SamReader:
     '''
@@ -15,6 +16,8 @@ class SamReader:
     for head, seq in thisReader.readFasta():
         print (head,seq)
     '''
+
+    # csv.reader(fileName, dialect = 'excel')
 
     def __init__(self, fname=''):
         '''contructor: saves attribute fname '''
