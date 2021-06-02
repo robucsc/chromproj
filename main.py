@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Name: Rob Lodes (rlodes), Michael S... (ms...)
+# Name: Rob Lodes (rlodes), Michael Farley (mijfarle)
 # bme160 final project
 
 # from mitoUtils import SamReader

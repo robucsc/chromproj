@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-# Name: Rob Lodes (rlodes), Michael Farley (mf...)
+# Name: Rob Lodes (rlodes), Michael Farley (mijfarle)
+# PI: Miten Jain
 # bme160 final project
 
 import glob
-from mitoUtils import SamReader
+from mitoUtils import SamReader, mitoSet
 
 
 ########################################################################
 # Main
 ########################################################################
 
-# def main(inCL=None):
 def main(inFile=None):
     '''
     The Main function.
@@ -26,23 +26,11 @@ def main(inFile=None):
     for file in files:
         mySam = SamReader(file)  # use this for debugging.
         print(mySam.fname)
-
-
-    #
-    #     for head, seq, in myFasta.readFasta():
-    #         seq = seq.replace('.', '').replace('_', '').replace('-', '')    # clean up seq
-    #         tRNA(head, seq)                                                 # instanciate a tRNA
-    #     tRNA.tRNAlist.sort(key = lambda element:element.head)               # sort base on the header
-    #     for current in tRNA.tRNAlist:                                       # traverse the tRNAlist
-    #         # send unique messages to all objects
-    #         current.findUniques()                                           # call findUniques
-    #         # send essential messages to all objects
-    #         current.findEssentials()                                        # call findEssentials
-    #         current.findPosition()                                          # call findPosition
-    #         print(current.head.replace(' ', ''))                            # clean up header, and print
-    #         print(current.seq)                                              # print the seq
-    #         for element in current.outputList:                              # travers the outputList
-    #             print(element)                                              # print the element
+        # mySam.readSam()
+        for row in mySam.readSam():
+            # print(row)
+            myMito = mitoSet(row)
+            myMito.printRow()
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Name: Rob Lodes (rlodes), Michael Farley (mf...)
+# Name: Rob Lodes (rlodes), Michael Farley (mijfarle)
+# PI: Miten Jain
 # bme160 final project
 
 
@@ -8,16 +9,9 @@ import csv
 
 class SamReader:
     '''
-    Define objects to read FastA files.
-
-    instantiation:
-    thisReader = FastAreader ('testTiny.fa')
-    usage:
-    for head, seq in thisReader.readFasta():
-        print (head,seq)
     '''
 
-    # csv.reader(fileName, dialect = 'excel')
+    # csv.reader(fileName, dialect = 'excel-tab')
 
     def __init__(self, fname=''):
         '''contructor: saves attribute fname '''
@@ -35,23 +29,36 @@ class SamReader:
         header = ''
         sequence = ''
 
-        with self.doOpen() as fileH:
+        with self.doOpen() as samFile:
+            reader = csv.reader(samFile, dialect='excel-tab')
+            for row in reader:
+                print(row)
+        #     header = ''
+        #     sequence = ''
+        #
+        #     # skip to first fasta header
+        #     line = fileH.readline()
+        #     while not line.startswith('sam'):
+        #         line = fileH.readline()
+        #     header = line[1:].rstrip()
+        #
+        #     for line in fileH:
+        #         if line.startswith('sam'):
+        #             yield header, sequence
+        #             header = line[1:].rstrip()
+        #             sequence = ''
+        #         else:
+        #             sequence += ''.join(line.rstrip().split()).upper()
+        #
+        yield row
 
-            header = ''
-            sequence = ''
+class mitoSet:
+    fileSet = set()
 
-            # skip to first fasta header
-            line = fileH.readline()
-            while not line.startswith('sam'):
-                line = fileH.readline()
-            header = line[1:].rstrip()
+    def __init__(self, row):
 
-            for line in fileH:
-                if line.startswith('sam'):
-                    yield header, sequence
-                    header = line[1:].rstrip()
-                    sequence = ''
-                else:
-                    sequence += ''.join(line.rstrip().split()).upper()
+        self.row = row
 
-        yield header, sequence
+    def printRow(self):
+        print(self.row)
+
