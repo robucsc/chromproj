@@ -25,11 +25,13 @@ def main(inFile=None):
 
     for file in files:
         mySam = SamReader(file)  # use this for debugging.
-        print(mySam.fname)
-        # mySam.readSam()
+        # print(mySam.fname)
+        mySam.readSam()
+        # myMito = file
+
         for row in mySam.readSam():
             # print(row)
-            myMito = mitoSet(row)
+            myMito = mitoSet(file, row)
             myMito.printRow()
 
 if __name__ == "__main__":

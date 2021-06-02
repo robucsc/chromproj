@@ -19,7 +19,7 @@ class SamReader:
 
     def doOpen(self):
         ''' Handle file opens, allowing STDIN.'''
-        if self.fname is '':
+        if self.fname == '':
             return sys.stdin
         else:
             return open(self.fname)
@@ -32,7 +32,8 @@ class SamReader:
         with self.doOpen() as samFile:
             reader = csv.reader(samFile, dialect='excel-tab')
             for row in reader:
-                print(row)
+                # print(row)
+                pass
         #     header = ''
         #     sequence = ''
         #
@@ -55,10 +56,16 @@ class SamReader:
 class mitoSet:
     fileSet = set()
 
-    def __init__(self, row):
-
+    def __init__(self, file, row):
+        self.file = file
         self.row = row
+        self.fileList = {}
+
+        self.fileList[file] = row
+
 
     def printRow(self):
-        print(self.row)
 
+        print(self.fileList.values())
+
+# list of files, differenceSet
