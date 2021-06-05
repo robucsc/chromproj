@@ -23,17 +23,30 @@ def main(inFile=None):
     print("Using glob.glob()")
     files = glob.glob('./data/*.txt', recursive = True)
 
+    myMito = mitoSet()
+    
+    standFile = 'chm13.draft_v1.0.chrM.fa.chrm.sorted.bam.pysamstats.txt'
+    standSam = SamReader(standFile) 
+    standSam.readSam()
+    myMito.addStand(standFile)
+    for row in standSam.readSam():
+        myMito.addRow(standFile, row)
+    myMito.printStandRow()
+        
+        
     for file in files:
         mySam = SamReader(file)  # use this for debugging.
         # print(mySam.fname)
         mySam.readSam()
-        # myMito = file
+        myMito.addFile(file)
 
         for row in mySam.readSam():
             # print(row)
-            myMito = mitoSet(file, row)
-            myMito.printRow()
+            myMito.addRow(file, row)
 
+        myMito.compareFile()
+    myMito.printRow()
+    
 if __name__ == "__main__":
     main()
     # main(inFile='testData.txt')   # use this for debugging
