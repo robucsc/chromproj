@@ -39,7 +39,7 @@ class mitoSet:
 
     def __init__(self):
         self.fileList = []
-        self.standList =[]
+        self.standList = []
         self.diffList = []
         # self.fileList = {}
 
@@ -67,7 +67,8 @@ class mitoSet:
         # print(self.fileList.values())
         for file in self.fileList:
             self.diffList = self.standList or file
-            # print(self.diffList)
+            print(self.diffList)
+            # pass
             
             
 

@@ -45,7 +45,7 @@ def main(inFile=None):
             myMito.addRow(file, row)
 
         myMito.compareFile()
-    myMito.printRow()
+    # myMito.printRow()
     
 if __name__ == "__main__":
     main()
