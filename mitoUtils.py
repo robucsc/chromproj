@@ -31,30 +31,26 @@ class SamReader:
             reader = csv.reader(samFile, dialect='excel-tab')
             for row in reader:
                 # print(row)
+                # row.strip().split()
+                yield
 
-                yield '-'.join(row) # join to work in a set
-
-class mitoSet:
-    fileSet = set()
+class mitoDictionary:
+    fileSet = {}
 
     def __init__(self):
-        self.fileList = []
-        self.standList = []
+        # self.fileList = []
         self.diffList = []
-        # self.fileList = {}
+        self.fileList = {}
 
         # self.fileList[file] = row
         
-    def addStand(self, file):
-        self.standList.append(file)
-
     def addFile(self, file):
         self.fileList.append(file)
 
     def addRow(self, file, row):
         makeSet = set([])
         makeSet = row
-        self.fileList.append(makeSet)
+        self.fileList[makeSet[row]]
 
     def printStandRow(self):
         print(self.standList)

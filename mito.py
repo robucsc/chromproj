@@ -4,8 +4,7 @@
 # bme160 final project
 
 import glob
-from mitoUtils import SamReader, mitoSet
-
+from mitoUtils import SamReader, mitoDictionary
 
 ########################################################################
 # Main
@@ -14,41 +13,30 @@ from mitoUtils import SamReader, mitoSet
 def main(inFile=None):
     '''
     The Main function.
-    Input: FastA sequences from STDIN
-    Output: a list of essential substrings graphically positioned in relation to their position in the sequence
-    Example use: python findUnique.py < dataFile.fa > output.txt
+    Input:
+    Output:
+    Example use: python mito.py
     '''
 
     # Returns a list of names in list files.
     print("Using glob.glob()")
     files = glob.glob('./data/*.txt', recursive = True)
-
-    myMito = mitoSet()
+    myMito = mitoDictionary()
     
-    standFile = 'chm13.draft_v1.0.chrM.fa.chrm.sorted.bam.pysamstats.txt'
-    standSam = SamReader(standFile) 
-    standSam.readSam()
-    myMito.addStand(standFile)
-    for row in standSam.readSam():
-        myMito.addRow(standFile, row)
-    myMito.printStandRow()
-        
-        
     for file in files:
         mySam = SamReader(file)  # use this for debugging.
-        # print(mySam.fname)
+        print(mySam.fname)
         mySam.readSam()
         myMito.addFile(file)
-
+        # next(mySam.readSam) # skip header
         for row in mySam.readSam():
             # print(row)
             myMito.addRow(file, row)
 
-        myMito.compareFile()
+        # myMito.compareFile()
     # myMito.printRow()
     
 if __name__ == "__main__":
     main()
     # main(inFile='testData.txt')   # use this for debugging
 
-    # glob, read is file paths to a list, and then use that list to read in the files.
