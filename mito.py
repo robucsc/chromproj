@@ -22,16 +22,18 @@ def main(inFile=None):
     print("Using glob.glob()")
     files = glob.glob('./data/*.txt', recursive = True)
     myMito = mitoDictionary()
-    
-    for file in files:
+
+    mySam = SamReader(files[0])
+    for row in mySam.readSam():
+        myMito.addPrimeRow(row)
+            
+    for file in range(1,len(files)):    # from second file on
         mySam = SamReader(file)  # use this for debugging.
-        print(mySam.fname)
+        # print(mySam.fname)
         mySam.readSam()
-        myMito.addFile(file)
         # next(mySam.readSam) # skip header
         for row in mySam.readSam():
-            # print(row)
-            myMito.addRow(file, row)
+            myMito.addRow(row)
 
         # myMito.compareFile()
     # myMito.printRow()

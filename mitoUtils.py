@@ -25,14 +25,12 @@ class SamReader:
             return open(self.fname)
 
     def readSam(self):
-        ''' Read an entire FastA record and return the sequence header/sequence'''
-
+        ''' Read an entire sam file and return one row at a time till EOF'''
         with self.doOpen() as samFile:
             reader = csv.reader(samFile, dialect='excel-tab')
+            skipHeader = next(reader)
             for row in reader:
-                # print(row)
-                # row.strip().split()
-                yield
+                yield row
 
 class mitoDictionary:
     fileSet = {}
@@ -40,31 +38,37 @@ class mitoDictionary:
     def __init__(self):
         # self.fileList = []
         self.diffList = []
-        self.fileList = {}
+        self.mito = {}
+        self.baseDict = {13: 'A', 15: 'C', 17: 'T', 19: 'G', 21: 'N'}
 
-        # self.fileList[file] = row
+    def addPrimeRow(self, row):
+        # self.mito[row[1]].update(self.mito[row[2]])         # add reference base
+        # self.mito({row[1]:row[2]})
+        self.mito[row[1]] = row[2]
         
-    def addFile(self, file):
-        self.fileList.append(file)
+        self.addRow(row)
 
-    def addRow(self, file, row):
-        makeSet = set([])
-        makeSet = row
-        self.fileList[makeSet[row]]
+    def addRow(self, row):
+        if (row[5] !=  1):
+            base = self.baseDict.get(row.index('1', 13, 21))  # interest, start, end
+            # self.mito[row[1]].append(self.mito[row[base]])
+            self.mito[row[1]] = base
 
-    def printStandRow(self):
-        print(self.standList)
 
-    def printRow(self):
-        print(self.fileList)
 
-    def compareFile(self):
-        # print(self.fileList.keys())
-        # print(self.fileList.values())
-        for file in self.fileList:
-            self.diffList = self.standList or file
-            print(self.diffList)
-            # pass
+    # def printStandRow(self):
+    #     print(self.standList)
+
+    # def printRow(self):
+    #     print(self.fileList)
+
+    # def compareFile(self):
+    #     # print(self.fileList.keys())
+    #     # print(self.fileList.values())
+    #     for file in self.fileList:
+    #         self.diffList = self.standList or file
+    #         print(self.diffList)
+    #         # pass
             
             
 
