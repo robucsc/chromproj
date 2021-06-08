@@ -28,7 +28,6 @@ class SamReader:
             reader = csv.reader(samFile, dialect='excel-tab') # reads data into a list
             next(reader)   # using next to skip the file header
             for row in reader:
-                # print(row)
                 yield row
 
 class mitoDictionary:
@@ -38,19 +37,26 @@ class mitoDictionary:
         self.baseDict = {13: 'A', 15: 'C', 17: 'T', 19: 'G', 21: 'N'}
 
     def addPrimeRow(self, row):
-        # add reference base
         rowList = []
         rowList.append(row[2])
-        self.mitoDict[row[1]] = rowList
-        # print(rowList)
+        self.mitoDict[row[1]] = rowList                     # add reference base
         self.addRow(row)
 
     def addRow(self, row):
         try:
-            base = self.baseDict[row.index('1', 13, 21)]  # interest, start, end
+            base = self.baseDict[row.index('1', 13, 21)]    # interest, start, end
             self.mitoDict[row[1]].append(base)
         except:
-            print('failure is not an option')
-        print(self.mitoDict[row[1]])
+            # print('failure is not an option')
+            pass
+        # print(self.mitoDict[row[1]])
 
+    def differencePosition(self):
+        diffPos = []
+        for key in self.mitoDict:
+            if(len(set(self.mitoDict[key]))) != 1:
+                diffPos.append(key)
+        # for value in self.mitoDict:
+        #     pass
+        print(diffPos)
 
