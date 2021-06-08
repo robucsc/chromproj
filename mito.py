@@ -19,19 +19,17 @@ def main(inFile=None):
     '''
 
     # Returns a list of names in list files.
-    print("Using glob.glob()")
+    # print("Using glob.glob()")
     files = glob.glob('./data/*.txt', recursive = True)
     myMito = mitoDictionary()
 
-    mySam = SamReader(files[0])
+    mySam = SamReader(files[0])     # process the first file
+    # print(files[0])
     for row in mySam.readSam():
         myMito.addPrimeRow(row)
-            
-    for file in range(1,len(files)):    # from second file on
-        mySam = SamReader(file)  # use this for debugging.
-        # print(mySam.fname)
-        mySam.readSam()
-        # next(mySam.readSam) # skip header
+
+    for i in range(1,len(files)):    # from second file on
+        mySam = SamReader(files[i])  # use this for debugging.
         for row in mySam.readSam():
             myMito.addRow(row)
 
