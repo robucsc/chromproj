@@ -35,10 +35,8 @@ def main(inFile=None):
         for row in mySam.readSam():
             myMito.addRow(row)
 
-        # myMito.compareFile()
-    # myMito.printRow()
     
 if __name__ == "__main__":
     main()
-    # main(inFile='testData.txt')   # use this for debugging
+
 
