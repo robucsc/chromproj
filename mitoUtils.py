@@ -81,7 +81,7 @@ class mitoDictionary:
         self.differencePosition()
         fileName = file.split('/')[-1]
         for diff in self.diffPos:
-            print('>', 'file', fileName, 'position', diff,
-                  ';chrM-', int(diff) - distance, '-', int(diff) + distance + 1)
+            print('> file ' + fileName + 'position ' + diff +
+                  '; chrM-' + str(int(diff) - distance) + '-' + str(int(diff) + distance + 1))
             print(self.findSeq(int(diff), distance, index))
 
