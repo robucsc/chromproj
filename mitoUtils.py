@@ -3,7 +3,6 @@
 # PI: Miten Jain
 # bme160 final project
 
-
 import sys
 import csv
 
@@ -78,11 +77,11 @@ class mitoDictionary:
 
         return (seq)
         
-    def outputSeq(self, file, distance, index):
+    def outputFasta(self, file, distance, index):
         self.differencePosition()
-        fileList = file.split('/')
-        fileName = fileList[-1]
+        fileName = file.split('/')[-1]
         for diff in self.diffPos:
-            print('>', 'file', fileName, 'position', diff)
+            print('>', 'file', fileName, 'position', diff,
+                  ';chrM-', int(diff) - distance, '-', int(diff) + distance + 1)
             print(self.findSeq(int(diff), distance, index))
 

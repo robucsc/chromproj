@@ -13,8 +13,8 @@ from mitoUtils import SamReader, mitoDictionary
 def main(inFile=None):
     '''
     The Main function.
-    Input:
-    Output:
+    Input: pysam files in the data subdirectory
+    Output: fasta file with seqs of interest to STDOUT
     Example use: python mito.py
     '''
 
@@ -26,15 +26,15 @@ def main(inFile=None):
     for row in mySam.readSam():
         myMito.addPrimeRow(row)
 
-    for i in range(1, len(files)):    # input from second file on
-        mySam = SamReader(files[i])
+    for file in range(1, len(files)):    # input from second file on
+        mySam = SamReader(files[file])
         for row in mySam.readSam():
             myMito.addRow(row)
 
-    distance = 10
+    distance = 10       # number of bases to each side of the point of interest
 
-    for index in range(1, len(files)):
-        myMito.outputSeq(files[index], distance, index)
+    for index in range(0, len(files)):
+        myMito.outputFasta(files[index], distance, index)
 
     
 if __name__ == "__main__":
