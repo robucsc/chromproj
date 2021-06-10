@@ -22,16 +22,19 @@ def main(inFile=None):
     files = glob.glob('./data/*.txt', recursive = True)
     myMito = mitoDictionary()
 
-    mySam = SamReader(files[0])     # process the first file
+    mySam = SamReader(files[0])     # input the first file
     for row in mySam.readSam():
         myMito.addPrimeRow(row)
 
-    for i in range(1,len(files)):    # from second file on
-        mySam = SamReader(files[i])  # use this for debugging.
+    for i in range(1, len(files)):    # input from second file on
+        mySam = SamReader(files[i])
         for row in mySam.readSam():
             myMito.addRow(row)
-            
-    myMito.differencePosition()
+
+    distance = 10
+
+    for index in range(1, len(files)):
+        myMito.outputSeq(files[index], distance, index)
 
     
 if __name__ == "__main__":

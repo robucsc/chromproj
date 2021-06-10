@@ -35,6 +35,7 @@ class mitoDictionary:
     def __init__(self):
         self.mitoDict = {}
         self.baseDict = {13: 'A', 15: 'C', 17: 'T', 19: 'G', 21: 'N'}
+        self.diffPos = []
 
     def addPrimeRow(self, row):
         rowList = []
@@ -49,14 +50,39 @@ class mitoDictionary:
         except:
             # print('failure is not an option')
             pass
-        # print(self.mitoDict[row[1]])
 
     def differencePosition(self):
-        diffPos = []
         for key in self.mitoDict:
             if(len(set(self.mitoDict[key]))) != 1:
-                diffPos.append(key)
-        # for value in self.mitoDict:
-        #     pass
-        print(diffPos)
+                self.diffPos.append(key)
+    
+    def findFullSeq(self):
+        seq = ''
+        for key in self.mitoDict:
+            seq = seq + self.mitoDict[key][0]
+        return (seq)
+
+    def findSeq(self, position, distance, index):
+        seq = ''
+        if (position > distance):
+            start = position - distance
+        else:
+            start = distance - position
+        stop = position + distance
+        try:
+            for key in range(start, stop):
+                seq = seq + self.mitoDict[str(key)][index + 1]
+        except:
+            # print('failure is not an option')
+            pass
+
+        return (seq)
+        
+    def outputSeq(self, file, distance, index):
+        self.differencePosition()
+        fileList = file.split('/')
+        fileName = fileList[-1]
+        for diff in self.diffPos:
+            print('>', 'file', fileName, 'position', diff)
+            print(self.findSeq(int(diff), distance, index))
 
