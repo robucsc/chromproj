@@ -105,7 +105,7 @@ class MitoDictionary:
         ''' creates the output in the fasta format '''
         self.differencePosition()                                   # find POI
         fileName = file.split('/')[-1]                              # get file name for header, strip path
-        for diff in self.diffPos:                                   # assemble header and seq output fasta format
+        for diff in self.diffPos:                                   # assemble header and seq, output fasta format
             print('> file ' + fileName + 'position ' + diff +
                   '; chrM-' + str(int(diff) - distance) + '-' + str(int(diff) + distance + 1))
             print(self.findSeq(int(diff), distance, index))

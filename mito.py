@@ -2,7 +2,21 @@
 # Name: Rob Lodes (rlodes), Michael Farley (mijfarle)
 # PI: Miten Jain
 # bme160 final project
-
+'''
+Analyzes a sam-formatted files containing a series of lists identifying points of interest,
+    and extracts a sequence for each point of interest.
+Input: a directory of sam files, default is: ./data/*.txt
+Output: formatted output listing the seq name, and for each seq its POI, start and stop
+            in the header, followed by the seq in the form af a fasta file.
+Example: python mito.py  > output.fa
+         python mito.py -p=./data.*.txt -d=7 > output.fa
+    '-p', '--path', action='store', default=None, nargs='?',
+                                 help='Location of the data files. Format: ./data/*.txt'
+    '-d', '--distance', type=int, choices=(0, 3, 5, 7, 10, 25, 100), default=10,
+                                 action='store', help='Number of bases on either side of the POI.
+                                 Options: 0, 3, 5, 7, 10, 25, 100'
+    -v, --version, action='version', version='%(prog)s 0.1'
+'''
 import glob
 from mitoUtils import SamReader, MitoDictionary
 
@@ -70,18 +84,18 @@ def main(inFile=None, options=None):
     myMito = MitoDictionary()
 
     mySam = SamReader(files[0])                             # input the first file
-    for row in mySam.readSam():
-        myMito.addPrimeRow(row)
+    for row in mySam.readSam():                             # traverse the rows
+        myMito.addPrimeRow(row)                             # enter rows into the dictionary
 
     for file in range(1, len(files)):                       # input from second file on
-        mySam = SamReader(files[file])
-        for row in mySam.readSam():
-            myMito.addRow(row)
+        mySam = SamReader(files[file])                      # traverse the file list not including the first file
+        for row in mySam.readSam():                         # traverse the rows
+            myMito.addRow(row)                              # enter rows into the dictionary
 
-    distance = thisCommandLine.args.distance       # number of bases to each side of the point of interest
+    distance = thisCommandLine.args.distance                # number of bases to each side of the point of interest
 
-    for index in range(0, len(files)):
-        myMito.outputFasta(files[index], distance, index)
+    for index in range(0, len(files)):                      # call the output method for each file name
+        myMito.outputFasta(files[index], distance, index)   # pass the file name, distance, and index
 
     # print(thisCommandLine.args)                       # for debugging
     
