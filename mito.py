@@ -94,8 +94,13 @@ def main(inFile=None, options=None):
 
     distance = thisCommandLine.args.distance                # number of bases to each side of the point of interest
 
-    for index in range(0, len(files)):                      # call the output method for each file name
-        myMito.outputFasta(files[index], distance, index)   # pass the file name, distance, and index
+    # for index in range(0, len(files)):                      # call the output method for each file name
+    #     myMito.outputFasta(files[index], distance, index)   # pass the file name, distance, and index
+
+    # for index in range(0, len(files)):                      # call the output method for each file name
+    
+    myMito.outputFastaPOI(files, distance)                  # call the POI version
+
 
     # print(thisCommandLine.args)                       # for debugging
     

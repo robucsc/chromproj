@@ -101,12 +101,21 @@ class MitoDictionary:
             pass
         return (seq)
         
-    def outputFasta(self, file, distance, index):
+    def outputFasta(self, file, distance, index):   # organize by file name
         ''' creates the output in the fasta format '''
         self.differencePosition()                                   # find POI
         fileName = file.split('/')[-1]                              # get file name for header, strip path
         for diff in self.diffPos:                                   # assemble header and seq, output fasta format
-            print('> file ' + fileName + 'position ' + diff +
+            print('> file ' + fileName + ' position ' + diff +
                   '; chrM-' + str(int(diff) - distance) + '-' + str(int(diff) + distance + 1))
             print(self.findSeq(int(diff), distance, index))
 
+    def outputFastaPOI(self, files, distance):   # organize by POI
+        ''' creates the output in the fasta format '''
+        self.differencePosition()                                   # find POI
+        for diff in self.diffPos:                                   # assemble header and seq, output fasta format
+            for index in range(0, len(files)):                      # call the output method for each file name
+                fileName = files[index].split('/')[-1]              # get file name for header, strip path
+                print('> file ' + fileName + ' position ' + diff +
+                  '; chrM-' + str(int(diff) - distance) + '-' + str(int(diff) + distance + 1))
+                print(self.findSeq(int(diff), distance, index))
